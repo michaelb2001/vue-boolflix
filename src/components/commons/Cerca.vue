@@ -1,5 +1,5 @@
 <template>
-  <div class="container d-flex align-items-center justify-content-center mx-2">
+  <div class="container d-flex flex-wrap align-items-center justify-content-end mx-2">
       <input type="text" placeholder="write a title" class="rounded-pill px-2 py-0 mx-2">
 
       <button class="btn btn-danger rounded-pill px-2 py-0">Search</button>

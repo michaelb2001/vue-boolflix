@@ -1,5 +1,6 @@
 <template>
-  <div class="container-fluid d-flex align-items-center">
+  <div class="container-fluid d-flex align-items-center justify-content-between">
+      <h1 class="text-danger">BOOLFIX</h1>
       <Cerca />
   </div>
 </template>
@@ -19,6 +20,7 @@ export default {
 @import '../assets/vars.scss';
 
 .container-fluid{
+    width: 100%;
     min-height: 50px;
     background-color: $main-color;
 }
