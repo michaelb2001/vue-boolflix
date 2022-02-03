@@ -1,8 +1,8 @@
 <template>
   <div class="container-fluid d-flex flex-wrap align-items-center justify-content-center">
       <ul>
-        <li v-for="(element,index) in listaFilms" :key="index">
-            {{element.title}} , {{element.original_title}} ,
+        <li v-for="(element,index) in lista" :key="index">
+            {{element.title}} {{element.name}}, {{element.original_title}} {{element.original_name}} ,
             <img v-if="element.original_language == 'en' " src="../assets/img/en.png">
             <img v-else-if="element.original_language == 'it' " src="../assets/img/it.png"> 
             <img v-else-if="element.original_language == 'de' " src="../assets/img/de.png">  
@@ -18,21 +18,13 @@
 export default {
     name:"Main",
     props:{
-        listaFilms :Array
+        lista :Array
     },
     data(){
         return {
             lingua : ""
         }
-    },
-    methods:{
-        immagineLinguaOriginale: function(){
-           if( this.listaFilms.original_language == "en"){
-               this.lingua="../assets/img/en.png";
-               return this.lingua;
-           }
-        }  
-        }
+    }
 }
 </script>
 

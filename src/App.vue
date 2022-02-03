@@ -3,7 +3,7 @@
     <Header 
     @chiama2="ricerca" />
     <Main 
-    :listaFilms="mioArray"/>  
+    :lista="mioArray"/>  
   </div>
 </template>
 
@@ -21,16 +21,20 @@ export default {
   data(){
     return{
         nomeRicerca :"",
-        mioArray : [],
-        apiURL : "https://api.themoviedb.org/3/search/movie"
+        arrayFilm:[],
+        arraySerie: [],
+        apiURLFilm : "https://api.themoviedb.org/3/search/movie",
+        apiURLSerie: "https://api.themoviedb.org/3/search/tv"
     }
   },
   created: function () {
-      this.getFilms();
+      /*this.mioArray.concat(this.getFilms);
+      this.mioArray.concat(this.getSerie);*/
   },
   methods:{
       getFilms : function(){
-        axios.get(this.apiURL, {
+        console.log("dentro getfilms")
+        axios.get(this.apiURLFilm, {
           params: {
             api_key: "6a51bfbc3fd574de9c1f2701377490e6",
             language : "it-IT",
@@ -38,8 +42,8 @@ export default {
           }
         })
         .then((risposta)=> {
-          this.mioArray = risposta.data.results;
-          console.log(this.mioArray);
+          this.arrayFilm = risposta.data.results;
+          return this.arrayFilm;
         })
         .catch((error)=> {
           console.log(error);
@@ -48,12 +52,43 @@ export default {
           // always executed
         });  
     },
+    getSerie: function(){
+        axios.get(this.apiURLSerie, {
+          params: {
+            api_key: "6a51bfbc3fd574de9c1f2701377490e6",
+            language : "it-IT",
+            query : this.nomeRicerca       
+          }
+        })
+        .then((risposta)=> {
+            this.arraySerie = risposta.data.results;
+            return this.arraySerie;
+        })
+        .catch((error)=> {
+          console.log(error);
+        })
+        .then(function () {
+          // always executed
+        });  
+    },
+  
     ricerca: function(valore){
-      console.log(valore);
-        this.nomeRicerca = valore;
-        this.getFilms();
+      this.nomeRicerca = valore;
+      this.getFilms();
+      this.getSerie();
+      /*this.mioArray.concat(this.getFilms());
+      this.mioArray.concat(this.getSerie());*/
+
     }
-  }
+  },
+      computed:{
+        mioArray: function(){
+          let arrayApp = [];
+          arrayApp = [...this.arrayFilm,...this.arraySerie];
+          console.log(arrayApp);
+          return arrayApp;
+        }
+    }
 }
 </script>
 
