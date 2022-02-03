@@ -3,7 +3,7 @@
     <input id="inputText" type="text" placeholder="write a title" class="rounded-pill px-2 py-0 mx-2"
     v-model="ricercato">
     <button class="btn btn-danger rounded-pill px-2 py-0" 
-    @click="$emit('cerca',ricercato)">Search</button>
+    @click="svuotaInput">Search</button>
   </div>
 </template>
 
@@ -13,6 +13,12 @@ export default {
     data(){
         return{
             ricercato:""
+        }
+    },
+    methods:{
+        svuotaInput:function(){
+            this.$emit('cerca',this.ricercato);
+            this.ricercato = "";
         }
     }
 
