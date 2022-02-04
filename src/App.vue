@@ -24,12 +24,13 @@ export default {
         arrayFilm:[],
         arraySerie: [],
         apiURLFilm : "https://api.themoviedb.org/3/search/movie",
-        apiURLSerie: "https://api.themoviedb.org/3/search/tv"
+        apiURLSerie: "https://api.themoviedb.org/3/search/tv",
+
+        image : ""
     }
   },
   created: function () {
-      /*this.mioArray.concat(this.getFilms);
-      this.mioArray.concat(this.getSerie);*/
+      this.ricerca();
   },
   methods:{
       getFilms : function(){
@@ -79,7 +80,7 @@ export default {
       /*this.mioArray.concat(this.getFilms());
       this.mioArray.concat(this.getSerie());*/
 
-    }
+    },
   },
       computed:{
         mioArray: function(){

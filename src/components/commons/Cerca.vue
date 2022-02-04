@@ -12,7 +12,7 @@ export default {
     name:"Cerca",
     data(){
         return{
-            ricercato:""
+            ricercato:"",
         }
     },
     methods:{
