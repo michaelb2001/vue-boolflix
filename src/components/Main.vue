@@ -1,23 +1,34 @@
 <template>
   <div class="container-fluid d-flex flex-wrap align-items-start justify-content-center">
-      <ul v-for="(element,index) in lista" :key="index">
-        <div>
-            <img v-if="element.poster_path != null" class="poster" :src="apiIMG+element.poster_path" alt="">
-        </div>
-        <div class="nullo d-flex justify-content-center align-items-center text-center" v-if="element.poster_path == null ">
+      <ul v-for="(element,index) in lista" :key="index" 
+      class="d-flex flex-column justify-content-center align-items-center text-center">
+        <li>
+            <div>
+                <img v-if="element.poster_path != null" class="poster" :src="apiIMG+element.poster_path" alt="">
+            </div>
+        </li>
+        <div class="nullo d-flex justify-content-center align-items-center text-center border border-danger" v-if="element.poster_path == null ">
             <h1>{{element.title}} {{element.name}}</h1>
         </div>
-        <li>{{element.title}} {{element.name}}</li>
-        <li>{{element.original_title}} {{element.original_name}} </li>
-        <li><img v-if="element.original_language == 'en' " src="../assets/img/en.png">
+        <li> Titolo : {{element.title}} {{element.name}}</li>
+        <li> Titolo Originale : {{element.original_title}} {{element.original_name}} </li>
+        <li> Lignua Originale : <img v-if="element.original_language == 'en' " src="../assets/img/en.png">
             <img v-else-if="element.original_language == 'it' " src="../assets/img/it.png"> 
             <img v-else-if="element.original_language == 'de' " src="../assets/img/de.png">  
             <img v-else src="../assets/img/peace.jpg">
         </li>
-        <li v-for="elemento in numero_stelline" :key="elemento.id">
-            <i class="fas fa-star"></i>
-        </li>
-        
+        <li class="d-flex">
+            Voto :&nbsp;
+            <div class="d-flex align-items-center">
+                <div v-for="(elemento,indice) in stelline(element.vote_average)" :key="indice">
+                    <i class="fas fa-star piene"></i>
+                </div>
+
+                <div  v-for="(elemento,indice) in (5 - stelline(element.vote_average))" :key="indice"> 
+                    <i class="fas fa-star vuote"></i>
+                </div>
+            </div>
+        </li>        
       </ul>
 
   </div>
@@ -32,18 +43,13 @@ export default {
     data(){
         return {
             lingua : "",
-            numero_stelline: null,
             apiIMG : "https://image.tmdb.org/t/p/w300"
         }
     },
-    mounted(){
-        this.stelline;
-    },
     methods:{
-        stelline: function(){
-            this.numero_stelline = Math.trunc(this.lista.vote_average / 2 );
-            console.log(this.numero_stelline);
-        }    
+        stelline: function(voto){
+            return Math.ceil( voto / 2 );
+        }   
     }
 }
 </script>
@@ -100,28 +106,18 @@ export default {
             img{
                 width: 18px;
                 height: 18px;
-            }
-            i{
+            }            
+            .piene{
                 color: yellow;
+                fill: yellow;
+                display: flex;
+            }
+            .vuote{
+                color: white;
+                fill: white;
             }
         }
     }
 }
 
-.fa-arrow-alt-circle-left{
-    position:absolute;
-    top: 50%;
-    left:10px;
-    color:$second-color;
-    font-size:24px
-
-}
-
-.fa-arrow-alt-circle-right{
-    position:absolute;
-    top: 50%;
-    right:10px;
-    color:$second-color;
-    font-size:24px;
-}
 </style>

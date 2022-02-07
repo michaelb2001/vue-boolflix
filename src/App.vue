@@ -25,8 +25,6 @@ export default {
         arraySerie: [],
         apiURLFilm : "https://api.themoviedb.org/3/search/movie",
         apiURLSerie: "https://api.themoviedb.org/3/search/tv",
-
-        image : ""
     }
   },
   created: function () {
